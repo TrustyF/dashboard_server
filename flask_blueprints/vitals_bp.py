@@ -13,7 +13,7 @@ def get():
     try:
         temp = subprocess.check_output(["vcgencmd", "measure_temp"]).decode("utf-8")
         format_temp['temp'] = float(temp.replace("temp=", "").replace("'C\n", "")), 200
-    except Exception:
-        pass
+    except Exception as e:
+        print('vitals exception', e)
 
     return format_temp, 200
