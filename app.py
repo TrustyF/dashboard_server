@@ -18,6 +18,7 @@ cache = Cache(app)
 with app.app_context():
     db.create_all()
 
-    from flask_blueprints import weather_bp
+    from flask_blueprints import weather_bp,vitals_bp
 
     app.register_blueprint(weather_bp.bp, url_prefix='/weather')
+    app.register_blueprint(vitals_bp.bp, url_prefix='/vitals')
