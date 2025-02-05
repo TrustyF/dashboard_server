@@ -6,7 +6,7 @@ bp = Blueprint('vitals', __name__)
 
 @bp.route("/get", methods=["GET"])
 def get():
-    format_temp = {'temp': 0, 'power':0 }
+    format_temp = {'temp': 0, 'power': 0}
 
     try:
         with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
@@ -14,8 +14,8 @@ def get():
         format_temp['temp'] = temp
 
         output = subprocess.check_output(["vcgencmd", "measure_volts", "core"]).decode("utf-8")
-        format_temp['power'] = float(output.replace("volt=", "").replace("V\n", ""))
-
+        power = float(output.replace("volt=", "").replace("V\n", ""))
+        format_temp['power'] = round(power * 10) / 10
 
     except Exception as e:
         pass
